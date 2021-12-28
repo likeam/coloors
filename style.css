@@ -36,12 +36,12 @@ svg{
     flex-direction: column;
     position: absolute;
     bottom: 0%;
-    background: rgb(184, 144, 144);
+    background:white;
     padding: 1rem;
     width: 80%;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
-    transform: translateY(150px);
+    /*transform: translateY(150px);*/
     transition: all 0.5s ease-in-out;
 }
 .sliders.active {
@@ -73,7 +73,9 @@ svg{
     justify-content: space-evenly;
     height: 20vh;
 }
-.panel button {
+.library,
+.generate,
+ .save {
     font-size: 1.2rem;
     margin: 1rem;
     padding: 1rem 2rem;
