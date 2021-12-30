@@ -104,3 +104,14 @@ svg{
     cursor: pointer;
     margin: 2rem 0rem;
 }
+
+/* SLIDER STUFF*/
+
+input[type = "range"]{
+    -webkit-appearance: none;
+    margin: 1rem 0rem;
+    position: relative;
+    width: 100%;
+    border-radius: 1rem;
+    cursor: pointer;
+}
