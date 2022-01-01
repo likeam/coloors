@@ -2,10 +2,17 @@
 const colorDivs = document.querySelectorAll(".color");
 const generateBtn = document.querySelector(".generate");
 const sliders = document.querySelectorAll('input[type="range"]');
-const currrentHexes =document.querySelectorAll(".color h2");
+const currrentHexes = document.querySelectorAll(".color h2");
+const popup = document.querySelector(".copy-container");
+const adjustButton = document.querySelectorAll(".adjust");
+const closeAdjustments = document.querySelectorAll(".close-adjustment");
+const sliderContainers = document.querySelectorAll(".sliders");     
+const lockButton = document.querySelectorAll(".lock");                                                                                                                                
 let initialColors;
 
+
 //ADD EVENTLISTENERS
+
 sliders.forEach(slider =>{
     slider.addEventListener("input", hslControls);
 });
@@ -17,6 +24,30 @@ colorDivs.forEach((div, index) => {
     });
 });
 
+currrentHexes.forEach(hex =>{
+    hex.addEventListener("click", () => {
+        copyToClipboard(hex);
+    });
+});
+
+popup.addEventListener("transitionend", () =>{
+    const popupBox = popup.children[0];
+    popup.classList.remove("active");
+    popupBox.classList.remove("active"); 
+});
+
+adjustButton.forEach((button, index) => {
+    button.addEventListener("click", () => {
+        openAdjustmentPanel(index);
+    });
+});
+ closeAdjustments.forEach((button, index) => {
+     button.addEventListener("click",() =>{
+         closeAdjustmentPanel(index);
+     });
+ });
+
+generateBtn.addEventListener("click", randomColors);
 
 //FUNCTIONS  
 //COLOR GENERATOR
@@ -33,12 +64,17 @@ function randomColors() {
         const randomColor = generateHex();
          
         //ADD COLOR TO INITIAL COLOR ARRY
+        if(div.classList.contains("locked")){
+            initialColors.push(hexText.innerText);
+            return;
+        }else{
         initialColors.push(chroma(randomColor).hex()); 
-       
+        } 
 
         //ADD THE COLOR TO BG
         div.style.backgroundColor = randomColor;
         hexText.innerText = randomColor;
+     
         
         //CHECK FOR CONTRAST
         checkTextContrast(randomColor,hexText);
@@ -51,6 +87,16 @@ function randomColors() {
         const saturation = sliders[2];
         colorizaSliders(color, hue, brightness, saturation);
     });
+
+      //RESET INPUTS
+        resetInputs();
+
+      //CHECK FOR BUTTON CONTRAST
+     adjustButton.forEach((button, index) => {
+        checkTextContrast(initialColors[index], button);
+        checkTextContrast(initialColors[index], lockButton[index]);
+     });
+
 }
 
 function checkTextContrast(color,text){
@@ -135,6 +181,29 @@ function resetInputs() {
         slider.value = Math.floor(satValue * 100) / 100;
       }
     });
+}
+
+function copyToClipboard(hex){
+    const el = document.createElement("textarea");
+    el.value = hex.innerText;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    
+    //POPUP ANIMATION
+    const popupBox = popup.children[0];
+    popup.classList.add("active");
+    popupBox.classList.add("active");
+
+}
+
+function openAdjustmentPanel(index){
+    sliderContainers[index].classList.toggle("active"); 
+}
+
+function closeAdjustmentPanel(index){
+    sliderContainers[index].classList.remove("active");
 }
 
 randomColors();
