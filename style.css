@@ -37,7 +37,7 @@ svg {
   position: absolute;
   bottom: 0%;
   background: white;
-  opacity:0 ;
+  opacity: 0;
   padding: 1rem;
   width: 80%;
   border-top-left-radius: 1rem;
@@ -50,7 +50,9 @@ svg {
   transform: translateY(0px);
   pointer-events: all;
 }
-.sliders button {
+.sliders button,
+.close-save,
+.close-library {
   position: absolute;
   top: 0;
   right: 0;
@@ -64,45 +66,44 @@ svg {
   font-weight: bold;
 }
 .controls {
-    display: flex;
-    flex-direction: column;
-  }
-  .panel {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 20vh;
-  }
-  .panel button {
-    font-size: 1.2rem;
-    margin: 1rem;
-    padding: 1rem 2rem;
-    background: rgb(31, 33, 63);
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 1rem;
-  }
-  .panel p {
-    font-size: 1.2rem;
-  }
-  .library-panel,
-  .generate-panel,
-  .save-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .adjust,
-  .lock {
-    font-size: 2rem;
-    border: none;
-    background: none;
-    cursor: pointer;
-    margin: 2rem 0rem;
-  }
-  
+  display: flex;
+  flex-direction: column;
+}
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 20vh;
+}
+.panel button {
+  font-size: 1.2rem;
+  margin: 1rem;
+  padding: 1rem 2rem;
+  background: rgb(31, 33, 63);
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 1rem;
+}
+.panel p {
+  font-size: 1.2rem;
+}
+.library-panel,
+.generate-panel,
+.save-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adjust,
+.lock {
+  font-size: 2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin: 2rem 0rem;
+}
 
 /* SLIDER STUFF*/
 
@@ -115,7 +116,9 @@ input[type="range"] {
   cursor: pointer;
 }
 
-.copy-container {
+.copy-container,
+.save-container,
+.library-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -129,26 +132,53 @@ input[type="range"] {
   opacity: 0;
   pointer-events: none;
 }
-.copy-container.active{
-    opacity: 1;
-    pointer-events: all;
+.copy-container.active,
+.save-container.active,
+.library-container.active {
+  opacity: 1;
+  pointer-events: all;
 }
-.copy-popup{
-    background: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    border-radius: 2rem;
-    transition: transform 0.5s ease;
-    transform: translateY(-2rem);
-    min-width: 30%;
-    min-height: 30vh;
+.copy-popup,
+.save-popup,
+.library-popup {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 2rem;
+  transition: transform 0.5s ease;
+  transform: translateY(-2rem);
+  min-width: 30%;
+  min-height: 30vh;
 }
-.copy-popup.active{
-    transform: translateY(0rem);
+.copy-popup.active,
+.library-popup.active,
+.save-popup.active {
+  transform: translateY(0rem);
 }
-.copy-popup h4{
-    font-size: 2rem;
-    padding: 2rem;
-}                                                         
+.copy-popup h4,
+.save-popup h4,
+.library-popup h4 {
+  font-size: 2rem;
+  padding: 2rem;
+}
+.save-name {
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+.close-save,
+.close-library {
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  padding: 0.5rem;
+}
+.submit-save {
+  margin: 2rem;
+  padding: 1rem 3rem;
+  background: rgb(60, 60, 92);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
